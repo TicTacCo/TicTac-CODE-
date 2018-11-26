@@ -30,12 +30,12 @@ int main()
 	int n2 = 1, n1; 
 	while (game.BigWin() == 0) //or Turn != End OF Game
 	{
-		if (game.turn != 0 && game.isFull(n1) == 0 ) //if needed, can make turn private and use a getTurn member function instead
+		if (game.turn != 0 && game.isFull(n2) == 0 ) //if needed, can make turn private and use a getTurn member function instead
 		{
 			n1=n2;
 			n2 = game.play(n1); //second input will be called in the play member function. 
 		}
-		if (game.turn == 0 || game.isFull(n1) ==1)
+		if (game.turn == 0 || game.isFull(n2) == 1)
 		{
 			game.SeeBig(); //Print out entire board. Probably different in Android Studio
 			//Prompt player to select which small board
