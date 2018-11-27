@@ -31,15 +31,20 @@ int TicTac::play(int n1) //returns n2
 	int n2, row, col;
 	
 	//Need to prompt player which box to play in. Also need to allow player to zoom/ unzoom.
+	SeeBig();
 	do
 	{	
-		SeeSmall(n1);
-		cout<<"Select square (1-9) to play in or use zoom/unzoom\nType zoom to zoom and unzoom to unzoom\n"; //Different in android studio; *NOTE* in android studio need to make sure player can't select an already selected square
+		cout<<"Select square (1-9) to play in or use zoom/unzoom\nType zoom to zoom and unzoom to unzoom and seewin to seewin\n"; //Different in android studio; *NOTE* in android studio need to make sure player can't select an already selected square
 		cin>>input;
 		if (input == "zoom")
 			SeeSmall(n1); //could add option to zoom into other small boards. But not practical/important
 		if (input == "unzoom")
 			SeeBig();
+		if (input == "seewin" )
+		{
+			SeeWin();
+			input = "zoom";
+		}
 	}
 	while (input =="zoom"||input=="unzoom");
 	stringstream convert(input);
@@ -128,9 +133,9 @@ int TicTac::play(int n1) //returns n2
 		if (n1 < 10 && n1 > 6)
 			row = 2;
 		col = n1 - 3*row - 1;
-		if (turn%2 == 0)
+		if (turn%2 == 0 && BigBoard[row][col] == ' ')
 			BigBoard[row][col] = 'X';
-		else
+		if (turn%2 == 1 && BigBoard[row][col] == ' ')
 			BigBoard[row][col] = 'O';
 		if(BigWin())
 			cout<<"CONGRATULATIONS!!! Player"<<turn%2+1<<" wins!"<<endl;
@@ -265,7 +270,6 @@ bool TicTac::BigWin()
 		if (count == 3)
 			return true;
 	}
-
 	return false;
 }
 bool TicTac::SmallWin(int n1) //Again can make like much slimmer in java by augmenting a string SmallBoard_ with n1 then turning the string into code in java but not c++ as far as I know.
@@ -323,7 +327,7 @@ bool TicTac::SmallWin(int n1) //Again can make like much slimmer in java by augm
 			if (SmallBoard_1[i][i] == 'O')
 				count++;
 			if (count == 3)
-				return true;
+			return true;
 		}
 		count = 0;
 		for (int i = 0; i < 3; i ++)
@@ -958,8 +962,7 @@ void TicTac::SeeBig()
 		{
 			cout<< SmallBoard_6[i][j];
 		}
-		cout<<endl;
-	
+		cout<<endl;	
 	}
 	cout<<"\n-----------\n";
 	for (int i = 0; i < 3; i++)
@@ -980,6 +983,15 @@ void TicTac::SeeBig()
 		}
 		cout<<endl;
 	}	
+}
+void TicTac::SeeWin()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+			cout<<BigBoard[i][j];
+		cout<<endl;
+	}
 }
 void TicTac::SeeSmall(int n1) //Am not including borders for the smallBoards since it should be better in java. So it is hard to read atm
 {

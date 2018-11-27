@@ -1,6 +1,5 @@
 #ifndef TICTAC_H
 #define TICTAC_H
-#include <iostream>
 
 class TicTac
 {		
@@ -13,6 +12,7 @@ class TicTac
 		bool SmallWin(int n1);
 		void SeeBig();
 		void SeeSmall(int n1);
+		void SeeWin();
 	private: 
 		char SmallBoard_1[3][3];
 		char SmallBoard_2[3][3];
@@ -25,8 +25,5 @@ class TicTac
 		char SmallBoard_9[3][3];
 		char BigBoard[3][3];		 
 };
-
-
 #endif
 
-//MIGHT NEED TO MAKE 2 SEPARATE FILES FOR TICTAC AND BOARD
